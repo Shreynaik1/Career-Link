@@ -1,0 +1,21 @@
+<svg width="320" height="100" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon -->
+  <rect x="10" y="20" rx="12" ry="12" width="60" height="60" fill="#2563EB"/>
+  
+  <!-- Link symbol -->
+  <path d="M32 50c0-6 5-11 11-11h8v6h-8a5 5 0 0 0 0 10h8v6h-8c-6 0-11-5-11-11z" fill="#ffffff"/>
+  <path d="M48 45h8a5 5 0 0 1 0 10h-8v6h8c6 0 11-5 11-11s-5-11-11-11h-8v6z" fill="#ffffff"/>
+
+  <!-- Text -->
+  <text x="90" y="55" font-size="28" font-family="Arial, Helvetica, sans-serif" fill="#111827" font-weight="700">
+    Career
+  </text>
+  <text x="190" y="55" font-size="28" font-family="Arial, Helvetica, sans-serif" fill="#2563EB" font-weight="700">
+    Link
+  </text>
+
+  <!-- Tagline -->
+  <text x="92" y="75" font-size="12" font-family="Arial, Helvetica, sans-serif" fill="#6B7280">
+    Connecting skills to opportunities
+  </text>
+</svg>
