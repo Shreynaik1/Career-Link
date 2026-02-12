@@ -87,7 +87,7 @@ const Post = ({ post }) => {
 	};
 
 	return (
-		<div className='bg-secondary rounded-lg shadow mb-4'>
+		<div className='bg-secondary rounded-xl shadow-soft-card mb-4 border border-base-200/60 hover:border-primary/30 hover:shadow-lg transition-all duration-200'>
 			<div className='p-4'>
 				<div className='flex items-center justify-between mb-4'>
 					<div className='flex items-center'>
@@ -99,11 +99,11 @@ const Post = ({ post }) => {
 							/>
 						</Link>
 
-						<div>
+						<div className='space-y-0.5'>
 							<Link to={`/profile/${post?.author?.username}`}>
-								<h3 className='font-semibold'>{post.author.name}</h3>
+								<h3 className='font-semibold text-sm'>{post.author.name}</h3>
 							</Link>
-							<p className='text-xs text-info'>{post.author.headline}</p>
+							<p className='text-[11px] text-info'>{post.author.headline}</p>
 							<p className='text-xs text-info'>
 								{formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
 							</p>

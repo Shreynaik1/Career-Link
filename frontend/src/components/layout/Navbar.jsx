@@ -2,8 +2,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
 import { Link } from "react-router-dom";
 import { Bell, Home, LogOut, User, Users } from "lucide-react";
+import ThemeToggle from "../ThemeToggle";
+import { useSearch } from "../../context/SearchContext.jsx";
 
 const Navbar = () => {
+	const { searchTerm, setSearchTerm } = useSearch();
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 	const queryClient = useQueryClient();
 
@@ -30,66 +33,95 @@ const Navbar = () => {
 	const unreadConnectionRequestsCount = connectionRequests?.data?.length;
 
 	return (
-		<nav className='bg-secondary shadow-md sticky top-0 z-10'>
+		<nav className='sticky top-0 z-20 bg-secondary/80 backdrop-blur-lg border-b border-base-200/70'>
 			<div className='max-w-7xl mx-auto px-4'>
-				<div className='flex justify-between items-center py-3'>
-					<div className='flex items-center space-x-4'>
-						<Link to='/'>
-							<img className='h-8 rounded' src='/small-logo.png' alt='Career Link' />
+				<div className='flex justify-between items-center py-3 gap-4'>
+					<div className='flex items-center space-x-3'>
+						<Link to='/' className='flex items-center gap-2'>
+							<img className='h-8 rounded shadow-soft-card' src='/small-logo.png' alt='Career Link' />
+							<span className='hidden sm:inline font-semibold tracking-tight text-neutral'>
+								CareerLink
+							</span>
 						</Link>
 					</div>
-					<div className='flex items-center gap-2 md:gap-6'>
+
+					{authUser && (
+						<div className='hidden md:flex flex-1 max-w-sm mx-4'>
+							<input
+								type='text'
+								placeholder='Search people, posts, or opportunities'
+								value={searchTerm}
+								onChange={(e) => setSearchTerm(e.target.value)}
+								className='input input-sm w-full rounded-full bg-base-100/80 border-base-300 focus:outline-none focus:ring-2 focus:ring-primary/60'
+							/>
+						</div>
+					)}
+
+					<div className='flex items-center gap-2 md:gap-4'>
 						{authUser ? (
 							<>
-								<Link to={"/"} className='text-neutral flex flex-col items-center'>
-									<Home size={20} />
-									<span className='text-xs hidden md:block'>Home</span>
-								</Link>
-								<Link to='/network' className='text-neutral flex flex-col items-center relative'>
-									<Users size={20} />
-									<span className='text-xs hidden md:block'>My Network</span>
-									{unreadConnectionRequestsCount > 0 && (
-										<span
-											className='absolute -top-1 -right-1 md:right-4 bg-blue-500 text-white text-xs 
-										rounded-full size-3 md:size-4 flex items-center justify-center'
-										>
-											{unreadConnectionRequestsCount}
-										</span>
-									)}
-								</Link>
-								<Link to='/notifications' className='text-neutral flex flex-col items-center relative'>
-									<Bell size={20} />
-									<span className='text-xs hidden md:block'>Notifications</span>
-									{unreadNotificationCount > 0 && (
-										<span
-											className='absolute -top-1 -right-1 md:right-4 bg-blue-500 text-white text-xs 
-										rounded-full size-3 md:size-4 flex items-center justify-center'
-										>
-											{unreadNotificationCount}
-										</span>
-									)}
-								</Link>
-								<Link
-									to={`/profile/${authUser.username}`}
-									className='text-neutral flex flex-col items-center'
-								>
-									<User size={20} />
-									<span className='text-xs hidden md:block'>Me</span>
-								</Link>
-								<button
-									className='flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-800'
-									onClick={() => logout()}
-								>
-									<LogOut size={20} />
-									<span className='hidden md:inline'>Logout</span>
-								</button>
+								<div className='flex items-center gap-3'>
+									<Link to={"/"} className='text-neutral flex flex-col items-center text-xs gap-1'>
+										<Home size={20} />
+										<span className='hidden md:block'>Home</span>
+									</Link>
+									<Link
+										to='/network'
+										className='text-neutral flex flex-col items-center relative text-xs gap-1'
+									>
+										<Users size={20} />
+										<span className='hidden md:block'>My Network</span>
+										{unreadConnectionRequestsCount > 0 && (
+											<span
+												className='absolute -top-1 -right-1 md:right-3 bg-primary text-white text-[10px] 
+										rounded-full min-w-[14px] h-[14px] flex items-center justify-center px-[2px]'
+											>
+												{unreadConnectionRequestsCount}
+											</span>
+										)}
+									</Link>
+									<Link
+										to='/notifications'
+										className='text-neutral flex flex-col items-center relative text-xs gap-1'
+									>
+										<Bell size={20} />
+										<span className='hidden md:block'>Notifications</span>
+										{unreadNotificationCount > 0 && (
+											<span
+												className='absolute -top-1 -right-1 md:right-3 bg-primary text-white text-[10px] 
+										rounded-full min-w-[14px] h-[14px] flex items-center justify-center px-[2px]'
+											>
+												{unreadNotificationCount}
+											</span>
+										)}
+									</Link>
+									<Link
+										to={`/profile/${authUser.username}`}
+										className='text-neutral flex flex-col items-center text-xs gap-1'
+									>
+										<User size={20} />
+										<span className='hidden md:block'>Me</span>
+									</Link>
+								</div>
+
+								<div className='flex items-center gap-2'>
+									<ThemeToggle />
+									<button
+										className='btn btn-sm btn-ghost gap-1 text-xs md:text-sm'
+										onClick={() => logout()}
+									>
+										<LogOut size={18} />
+										<span className='hidden md:inline'>Logout</span>
+									</button>
+								</div>
 							</>
 						) : (
 							<>
-								<Link to='/login' className='btn btn-ghost'>
+								<ThemeToggle />
+								<Link to='/login' className='btn btn-ghost btn-sm'>
 									Sign In
 								</Link>
-								<Link to='/signup' className='btn btn-primary'>
+								<Link to='/signup' className='btn btn-primary btn-sm rounded-full px-4'>
 									Join now
 								</Link>
 							</>
@@ -100,4 +132,5 @@ const Navbar = () => {
 		</nav>
 	);
 };
+
 export default Navbar;

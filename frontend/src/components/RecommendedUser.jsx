@@ -112,19 +112,19 @@ const RecommendedUser = ({ user }) => {
 	};
 
 	return (
-		<div className='flex items-center justify-between mb-4'>
-			<Link to={`/profile/${user.username}`} className='flex items-center flex-grow'>
+		<div className='flex items-center justify-between mb-3 rounded-lg hover:bg-base-100/70 transition-colors px-2 py-1.5'>
+			<Link to={`/profile/${user.username}`} className='flex items-center flex-grow min-w-0'>
 				<img
 					src={user.profilePicture || "/avatar.png"}
 					alt={user.name}
-					className='w-12 h-12 rounded-full mr-3'
+					className='w-10 h-10 rounded-full mr-3 object-cover'
 				/>
-				<div>
-					<h3 className='font-semibold text-sm'>{user.name}</h3>
-					<p className='text-xs text-info'>{user.headline}</p>
+				<div className='min-w-0'>
+					<h3 className='font-semibold text-xs truncate'>{user.name}</h3>
+					<p className='text-[11px] text-info line-clamp-2'>{user.headline}</p>
 				</div>
 			</Link>
-			{renderButton()}
+			<div className='ml-2 flex-shrink-0'>{renderButton()}</div>
 		</div>
 	);
 };

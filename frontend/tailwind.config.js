@@ -4,7 +4,11 @@ import daisyui from "daisyui";
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
-		extend: {},
+		extend: {
+			boxShadow: {
+				"soft-card": "0 18px 45px rgba(15, 23, 42, 0.09)",
+			},
+		},
 	},
 	plugins: [daisyui],
 	daisyui: {
@@ -20,6 +24,17 @@ export default {
 					success: "#057642", // Dark Green (for success messages)
 					warning: "#F5C75D", // Yellow (for warnings)
 					error: "#CC1016", // Red (for errors)
+				},
+				careerlinkDark: {
+					primary: "#0A66C2",
+					secondary: "#020617",
+					accent: "#22c55e",
+					neutral: "#e5e7eb",
+					"base-100": "#020617",
+					info: "#9ca3af",
+					success: "#22c55e",
+					warning: "#eab308",
+					error: "#f97373",
 				},
 			},
 		],
