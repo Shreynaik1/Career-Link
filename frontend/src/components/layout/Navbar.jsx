@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
 import { Link } from "react-router-dom";
-import { Bell, Home, LogOut, User, Users } from "lucide-react";
+import { Bell, Home, LogOut, MessageSquare, User, Users } from "lucide-react";
 import ThemeToggle from "../ThemeToggle";
 import { useSearch } from "../../context/SearchContext.jsx";
 
@@ -21,6 +21,23 @@ const Navbar = () => {
 		queryFn: async () => axiosInstance.get("/connections/requests"),
 		enabled: !!authUser,
 	});
+
+	const { data: conversations } = useQuery({
+		queryKey: ["conversations"],
+		queryFn: async () => {
+			try {
+				const res = await axiosInstance.get("/messages/conversations");
+				return res.data;
+			} catch (error) {
+				// Silently fail if messages endpoint doesn't exist or errors
+				return [];
+			}
+		},
+		enabled: !!authUser,
+		retry: false,
+	});
+
+	const unreadMessagesCount = conversations?.reduce((count, conv) => count + (conv.unreadCount || 0), 0) || 0;
 
 	const { mutate: logout } = useMutation({
 		mutationFn: () => axiosInstance.post("/auth/logout"),
@@ -92,6 +109,21 @@ const Navbar = () => {
 										rounded-full min-w-[14px] h-[14px] flex items-center justify-center px-[2px]'
 											>
 												{unreadNotificationCount}
+											</span>
+										)}
+									</Link>
+									<Link
+										to='/messages'
+										className='text-neutral flex flex-col items-center relative text-xs gap-1'
+									>
+										<MessageSquare size={20} />
+										<span className='hidden md:block'>Messages</span>
+										{unreadMessagesCount > 0 && (
+											<span
+												className='absolute -top-1 -right-1 md:right-3 bg-primary text-white text-[10px] 
+										rounded-full min-w-[14px] h-[14px] flex items-center justify-center px-[2px]'
+											>
+												{unreadMessagesCount}
 											</span>
 										)}
 									</Link>
