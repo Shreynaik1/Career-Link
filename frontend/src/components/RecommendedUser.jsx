@@ -54,7 +54,7 @@ const RecommendedUser = ({ user }) => {
 			);
 		}
 
-		switch (connectionStatus?.data?.status) {
+		switch (connectionStatus?.data?.status)  {
 			case "pending":
 				return (
 					<button
