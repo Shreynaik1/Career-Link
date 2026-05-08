@@ -49,19 +49,16 @@ The platform allows users to create professional profiles, connect with others, 
 ## Screenshots
 # Screenshots
 
-
-<img width="1918" height="857" alt="Feed Page" src="https://github.com/user-attachments/assets/32e70262-195e-4bf1-abf5-a4fb46014cd3" />
-
-<br/>
-
-
-
 <img width="1882" height="837" alt="Home Dashboard" src="https://github.com/user-attachments/assets/1e827846-2f90-445b-8932-5189ad8ac86c" />
 
 <br/>
 
 
 <img width="1890" height="852" alt="Profile Section" src="https://github.com/user-attachments/assets/694aa44c-922a-4041-afef-0d485aee7435" />
+
+<br/>
+
+<img width="1918" height="857" alt="Feed Page" src="https://github.com/user-attachments/assets/32e70262-195e-4bf1-abf5-a4fb46014cd3" />
 
 <br/>
 
