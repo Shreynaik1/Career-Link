@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Bell, Home, UserPlus } from "lucide-react";
+import { Bell, Home, Users } from "lucide-react";
 
 function getProfileCompletion(user) {
 	if (!user) return 0;
@@ -21,81 +21,66 @@ function getProfileCompletion(user) {
 }
 
 export default function Sidebar({ user }) {
+	if (!user) return null;
 	const completion = getProfileCompletion(user);
 
 	return (
-		<div className='bg-secondary rounded-xl shadow-soft-card overflow-hidden border border-base-200/60'>
-			<div className='p-4 text-center pb-5'>
-				<div
-					className='h-16 rounded-t-lg bg-cover bg-center'
-					style={{
-						backgroundImage: `linear-gradient(to right, rgba(10,102,194,0.82), rgba(56,189,248,0.75)), url("${
-							user.bannerImg || "/banner.png"
-						}")`,
-					}}
-				/>
-				<Link to={`/profile/${user.username}`}>
+		<div className='glass-card rounded-2xl overflow-hidden hover-lift'>
+			<div
+				className='h-24 bg-cover bg-center relative'
+				style={{
+					backgroundImage: `url("${user.bannerImg || "/banner.png"}")`,
+				}}
+			>
+				<div className='absolute inset-0 bg-gradient-to-b from-black/20 to-transparent'></div>
+			</div>
+			<div className='p-5 text-center -mt-12 relative'>
+				<Link to={`/profile/${user.username}`} className='inline-block group'>
 					<img
 						src={user.profilePicture || "/avatar.png"}
 						alt={user.name}
-						className='w-20 h-20 rounded-full mx-auto mt-[-40px] border-4 border-secondary shadow-soft-card object-cover'
+						className='w-24 h-24 rounded-2xl object-cover mx-auto border-4 border-base-100 shadow-premium group-hover:scale-105 premium-transition'
 					/>
-					<h2 className='text-lg font-semibold mt-2'>{user.name}</h2>
 				</Link>
-				<p className='text-info text-sm line-clamp-2'>{user.headline}</p>
-				<p className='text-info text-xs mt-1 font-medium'>{user.connections.length} connections</p>
-
-				<div className='mt-4 text-left'>
-					<div className='flex justify-between items-center text-xs font-medium mb-1'>
-						<span className='text-info'>Profile strength</span>
-						<span className='text-primary'>{completion}%</span>
-					</div>
-					<div className='w-full h-2 rounded-full bg-base-100 overflow-hidden'>
-						<div
-							className='h-full rounded-full bg-gradient-to-r from-primary to-accent transition-[width] duration-500'
-							style={{ width: `${completion}%` }}
-						/>
-					</div>
+				<h2 className='text-xl font-bold mt-3 text-neutral font-["Outfit"] leading-tight'>{user.name}</h2>
+				<p className='text-neutral/60 text-sm mt-1 font-medium'>{user.headline}</p>
+				<div className='mt-4 flex flex-wrap justify-center gap-2'>
+					<span className='px-3 py-1 bg-primary/10 text-primary text-[11px] font-bold rounded-full uppercase tracking-wider'>
+						{user.connections?.length || 0} Connections
+					</span>
 				</div>
 			</div>
-
-			<div className='border-t border-base-100/80 p-4'>
-				<nav>
-					<ul className='space-y-1'>
-						<li>
-							<Link
-								to='/'
-								className='flex items-center py-2 px-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-sm'
-							>
-								<Home className='mr-2' size={18} /> Home
-							</Link>
-						</li>
-						<li>
-							<Link
-								to='/network'
-								className='flex items-center py-2 px-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-sm'
-							>
-								<UserPlus className='mr-2' size={18} /> My Network
-							</Link>
-						</li>
-						<li>
-							<Link
-								to='/notifications'
-								className='flex items-center py-2 px-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-sm'
-							>
-								<Bell className='mr-2' size={18} /> Notifications
-							</Link>
-						</li>
-					</ul>
+			<div className='border-t border-base-200/50 p-4 bg-base-100/30'>
+				<nav className='space-y-1'>
+					<Link
+						to='/'
+						className='flex items-center gap-3 px-3 py-2 rounded-xl text-neutral/70 hover:text-primary hover:bg-primary/5 premium-transition group'
+					>
+						<Home size={18} className='group-hover:scale-110 premium-transition' />
+						<span className='text-sm font-semibold'>Feed</span>
+					</Link>
+					<Link
+						to='/network'
+						className='flex items-center gap-3 px-3 py-2 rounded-xl text-neutral/70 hover:text-primary hover:bg-primary/5 premium-transition group'
+					>
+						<Users size={18} className='group-hover:scale-110 premium-transition' />
+						<span className='text-sm font-semibold'>My Network</span>
+					</Link>
+					<Link
+						to='/notifications'
+						className='flex items-center gap-3 px-3 py-2 rounded-xl text-neutral/70 hover:text-primary hover:bg-primary/5 premium-transition group'
+					>
+						<Bell size={18} className='group-hover:scale-110 premium-transition' />
+						<span className='text-sm font-semibold'>Notifications</span>
+					</Link>
 				</nav>
 			</div>
-
-			<div className='border-t border-base-100/80 p-4 bg-base-100/70'>
+			<div className='p-4 border-t border-base-200/50'>
 				<Link
 					to={`/profile/${user.username}`}
-					className='text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1'
+					className='btn btn-primary btn-sm w-full rounded-xl normal-case font-bold h-10 shadow-glow'
 				>
-					<span>View full profile</span>
+					View Profile
 				</Link>
 			</div>
 		</div>

@@ -28,13 +28,23 @@ const ProfilePage = () => {
 		},
 		onSuccess: () => {
 			toast.success("Profile updated successfully");
+			queryClient.invalidateQueries(["authUser"]);
 			queryClient.invalidateQueries(["userProfile", username]);
+		},
+		onError: (err) => {
+			toast.error(err.response?.data?.message || "Failed to update profile");
 		},
 	});
 
-	if (isLoading || isUserProfileLoading) return null;
+	if (isLoading || isUserProfileLoading) return (
+		<div className='flex justify-center items-center min-h-[50vh]'>
+			<div className='size-12 border-4 border-primary border-t-transparent rounded-full animate-spin'></div>
+		</div>
+	);
 
-	const isOwnProfile = authUser.username === userProfile.data.username;
+	if (!userProfile?.data) return <div className='text-center py-20 font-bold'>User not found</div>;
+
+	const isOwnProfile = authUser?.username === userProfile.data.username;
 	const userData = isOwnProfile ? authUser : userProfile.data;
 
 	const handleSave = (updatedData) => {

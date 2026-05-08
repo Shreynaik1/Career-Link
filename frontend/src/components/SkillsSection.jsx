@@ -1,10 +1,16 @@
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SkillsSection = ({ userData, isOwnProfile, onSave }) => {
 	const [isEditing, setIsEditing] = useState(false);
-	const [skills, setSkills] = useState(userData.skills || []);
+	const [skills, setSkills] = useState(Array.isArray(userData?.skills) ? userData.skills : []);
 	const [newSkill, setNewSkill] = useState("");
+
+	useEffect(() => {
+		if (Array.isArray(userData?.skills)) {
+			setSkills(userData.skills);
+		}
+	}, [userData?.skills]);
 
 	const handleAddSkill = () => {
 		if (newSkill && !skills.includes(newSkill)) {
@@ -23,18 +29,32 @@ const SkillsSection = ({ userData, isOwnProfile, onSave }) => {
 	};
 
 	return (
-		<div className='bg-white shadow rounded-lg p-6'>
-			<h2 className='text-xl font-semibold mb-4'>Skills</h2>
-			<div className='flex flex-wrap'>
+		<div className='glass-card rounded-3xl p-8 mb-8 hover-lift border-base-200/50'>
+			<div className='flex items-center justify-between mb-8'>
+				<h2 className='text-2xl font-bold text-neutral font-["Outfit"]'>Skills</h2>
+				{isOwnProfile && !isEditing && (
+					<button
+						onClick={() => setIsEditing(true)}
+						className='text-primary hover:bg-primary/5 px-4 py-1.5 rounded-xl font-bold text-sm premium-transition'
+					>
+						Edit Skills
+					</button>
+				)}
+			</div>
+
+			<div className='flex flex-wrap gap-3'>
 				{skills.map((skill, index) => (
 					<span
 						key={index}
-						className='bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm mr-2 mb-2 flex items-center'
+						className='bg-base-200/50 text-neutral/70 px-4 py-2 rounded-2xl text-[13px] font-bold border border-base-200 group flex items-center hover:bg-base-100 hover:border-primary/20 hover:shadow-soft-card premium-transition'
 					>
 						{skill}
 						{isEditing && (
-							<button onClick={() => handleDeleteSkill(skill)} className='ml-2 text-red-500'>
-								<X size={14} />
+							<button 
+								onClick={() => handleDeleteSkill(skill)} 
+								className='ml-2 text-neutral/30 hover:text-error premium-transition'
+							>
+								<X size={16} strokeWidth={3} />
 							</button>
 						)}
 					</span>
@@ -42,43 +62,42 @@ const SkillsSection = ({ userData, isOwnProfile, onSave }) => {
 			</div>
 
 			{isEditing && (
-				<div className='mt-4 flex'>
+				<div className='mt-8 flex gap-2'>
 					<input
 						type='text'
-						placeholder='New Skill'
+						placeholder='Add a new expertise...'
 						value={newSkill}
 						onChange={(e) => setNewSkill(e.target.value)}
-						className='flex-grow p-2 border rounded-l'
+						className='input-premium flex-grow rounded-xl h-11 px-4 text-sm'
+						onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
 					/>
 					<button
 						onClick={handleAddSkill}
-						className='bg-primary text-white py-2 px-4 rounded-r hover:bg-primary-dark transition duration-300'
+						className='btn btn-primary rounded-xl px-6 h-11 font-bold shadow-glow'
 					>
-						Add Skill
+						Add
 					</button>
 				</div>
 			)}
 
-			{isOwnProfile && (
-				<>
-					{isEditing ? (
-						<button
-							onClick={handleSave}
-							className='mt-4 bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark transition duration-300'
-						>
-							Save Changes
-						</button>
-					) : (
-						<button
-							onClick={() => setIsEditing(true)}
-							className='mt-4 text-primary hover:text-primary-dark transition duration-300'
-						>
-							Edit Skills
-						</button>
-					)}
-				</>
+			{isOwnProfile && isEditing && (
+				<div className='mt-8 pt-6 border-t border-base-200/50 flex gap-3'>
+					<button
+						onClick={handleSave}
+						className='btn btn-primary rounded-xl px-8 h-12 shadow-glow font-bold'
+					>
+						Save Skills
+					</button>
+					<button
+						onClick={() => setIsEditing(false)}
+						className='btn btn-ghost rounded-xl px-6 h-12 font-bold'
+					>
+						Cancel
+					</button>
+				</div>
 			)}
 		</div>
 	);
 };
+
 export default SkillsSection;

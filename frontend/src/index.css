@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-['Inter'] text-neutral antialiased;
+    background-color: theme('colors.base-100');
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-['Outfit'] font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-base-100/70 backdrop-blur-md border border-base-200/50 shadow-soft-card;
+  }
+
+  .premium-transition {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-lift {
+    @apply hover:-translate-y-1 hover:shadow-premium premium-transition;
+  }
+
+  .input-premium {
+    @apply bg-base-200/50 border-transparent focus:bg-base-100 focus:border-primary/30 focus:ring-4 focus:ring-primary/10 premium-transition text-neutral placeholder:text-neutral/30;
+  }
+}

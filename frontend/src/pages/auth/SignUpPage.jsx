@@ -3,30 +3,30 @@ import SignUpForm from "../../components/auth/SignUpForm";
 
 const SignUpPage = () => {
 	return (
-		<div className='min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
-			<div className='sm:mx-auto sm:w-full sm:max-w-md'>
-				<img className='mx-auto h-36 w-auto' src='/logo.svg' alt='Career Link' />
-				<h2 className='text-center text-3xl font-extrabold text-gray-900'>
-					Make the most of your professional life
-				</h2>
+		<div className='flex flex-col justify-center py-12 sm:px-6 lg:px-8 animate-fade-in'>
+			<div className='sm:mx-auto sm:w-full sm:max-w-md text-center'>
+				<img className='mx-auto h-20 w-auto rounded-2xl shadow-premium mb-6' src='/small-logo.png' alt='Career Link' />
+				<h2 className='text-3xl font-bold text-neutral font-["Outfit"] tracking-tight'>Join the community</h2>
+				<p className='text-neutral/40 text-sm mt-2 font-medium'>Start your professional journey with CareerLink today</p>
 			</div>
-			<div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md shadow-md'>
-				<div className='bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10'>
+
+			<div className='mt-10 sm:mx-auto sm:w-full sm:max-w-md'>
+				<div className='glass-card py-10 px-8 sm:rounded-3xl shadow-premium'>
 					<SignUpForm />
 
-					<div className='mt-6'>
+					<div className='mt-8'>
 						<div className='relative'>
 							<div className='absolute inset-0 flex items-center'>
-								<div className='w-full border-t border-gray-300'></div>
+								<div className='w-full border-t border-base-200'></div>
 							</div>
-							<div className='relative flex justify-center text-sm'>
-								<span className='px-2 bg-white text-gray-500'>Already on Career Link?</span>
+							<div className='relative flex justify-center text-[11px] font-bold uppercase tracking-widest'>
+								<span className='px-4 bg-white text-neutral/30'>Already have an account?</span>
 							</div>
 						</div>
-						<div className='mt-6'>
+						<div className='mt-8'>
 							<Link
 								to='/login'
-								className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-blue-600 bg-white hover:bg-gray-50'
+								className='w-full flex justify-center py-3 px-4 border-2 border-primary/10 rounded-2xl text-sm font-bold text-primary bg-white hover:bg-primary/5 hover:border-primary/20 premium-transition'
 							>
 								Sign in
 							</Link>

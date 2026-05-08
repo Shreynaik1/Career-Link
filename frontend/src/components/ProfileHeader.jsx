@@ -18,7 +18,9 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 		enabled: !isOwnProfile,
 	});
 
-	const isConnected = userData.connections.some((connection) => connection === authUser._id);
+	const isConnected = userData.connections?.some((connection) => 
+		(typeof connection === 'string' ? connection : connection._id) === authUser?._id
+	);
 
 	const { mutate: sendConnectionRequest } = useMutation({
 		mutationFn: (userId) => axiosInstance.post(`/connections/request/${userId}`),
@@ -70,8 +72,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 
 	const getConnectionStatus = useMemo(() => {
 		if (isConnected) return "connected";
-		if (!isConnected) return "not_connected";
-		return connectionStatus?.data?.status;
+		return connectionStatus?.data?.status || "not_connected";
 	}, [isConnected, connectionStatus]);
 
 	const renderConnectionButton = () => {
@@ -149,16 +150,17 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 	};
 
 	return (
-		<div className='bg-white shadow rounded-lg mb-6'>
+		<div className='glass-card rounded-3xl mb-8 overflow-hidden hover-lift'>
 			<div
-				className='relative h-48 rounded-t-lg bg-cover bg-center'
+				className='relative h-64 bg-cover bg-center'
 				style={{
 					backgroundImage: `url('${editedData.bannerImg || userData.bannerImg || "/banner.png"}')`,
 				}}
 			>
+				<div className='absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent'></div>
 				{isEditing && (
-					<label className='absolute top-2 right-2 bg-white p-2 rounded-full shadow cursor-pointer'>
-						<Camera size={20} />
+					<label className='absolute top-4 right-4 bg-base-200/30 backdrop-blur-md p-3 rounded-2xl shadow-premium cursor-pointer hover:bg-base-200/50 premium-transition group'>
+						<Camera size={22} className='text-white group-hover:scale-110 premium-transition' />
 						<input
 							type='file'
 							className='hidden'
@@ -170,87 +172,99 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 				)}
 			</div>
 
-			<div className='p-4'>
-				<div className='relative -mt-20 mb-4'>
-					<img
-						className='w-32 h-32 rounded-full mx-auto object-cover'
-						src={editedData.profilePicture || userData.profilePicture || "/avatar.png"}
-						alt={userData.name}
-					/>
-
-					{isEditing && (
-						<label className='absolute bottom-0 right-1/2 transform translate-x-16 bg-white p-2 rounded-full shadow cursor-pointer'>
-							<Camera size={20} />
-							<input
-								type='file'
-								className='hidden'
-								name='profilePicture'
-								onChange={handleImageChange}
-								accept='image/*'
-							/>
-						</label>
-					)}
-				</div>
-
-				<div className='text-center mb-4'>
-					{isEditing ? (
-						<input
-							type='text'
-							value={editedData.name ?? userData.name}
-							onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
-							className='text-2xl font-bold mb-2 text-center w-full'
+			<div className='px-8 pb-8'>
+				<div className='relative -mt-24 mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-6'>
+					<div className='relative group inline-block mx-auto md:mx-0'>
+						<img
+							className='w-40 h-40 rounded-3xl object-cover border-8 border-base-100 shadow-premium'
+							src={editedData.profilePicture || userData.profilePicture || "/avatar.png"}
+							alt={userData.name}
 						/>
-					) : (
-						<h1 className='text-2xl font-bold mb-2'>{userData.name}</h1>
-					)}
 
-					{isEditing ? (
-						<input
-							type='text'
-							value={editedData.headline ?? userData.headline}
-							onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
-							className='text-gray-600 text-center w-full'
-						/>
-					) : (
-						<p className='text-gray-600'>{userData.headline}</p>
-					)}
+						{isEditing && (
+							<label className='absolute bottom-2 right-2 bg-primary p-3 rounded-2xl shadow-glow cursor-pointer hover:scale-110 premium-transition'>
+								<Camera size={20} className='text-white' />
+								<input
+									type='file'
+									className='hidden'
+									name='profilePicture'
+									onChange={handleImageChange}
+									accept='image/*'
+								/>
+							</label>
+						)}
+					</div>
 
-					<div className='flex justify-center items-center mt-2'>
-						<MapPin size={16} className='text-gray-500 mr-1' />
+					<div className='flex-1 text-center md:text-left mb-2'>
 						{isEditing ? (
 							<input
 								type='text'
-								value={editedData.location ?? userData.location}
-								onChange={(e) => setEditedData({ ...editedData, location: e.target.value })}
-								className='text-gray-600 text-center'
+								value={editedData.name ?? userData.name}
+								onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
+								className='text-3xl font-bold mb-2 bg-base-200/50 rounded-xl px-4 py-1 w-full max-w-md focus:ring-4 focus:ring-primary/10 border-transparent outline-none premium-transition'
 							/>
 						) : (
-							<span className='text-gray-600'>{userData.location}</span>
+							<h1 className='text-3xl md:text-4xl font-bold mb-2 text-neutral font-["Outfit"]'>{userData.name}</h1>
+						)}
+
+						{isEditing ? (
+							<input
+								type='text'
+								value={editedData.headline ?? userData.headline}
+								onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
+								className='text-neutral/60 bg-base-200/50 rounded-xl px-4 py-1 w-full max-w-md focus:ring-4 focus:ring-primary/10 border-transparent outline-none premium-transition'
+							/>
+						) : (
+							<p className='text-neutral/60 font-medium text-lg'>{userData.headline}</p>
+						)}
+
+						<div className='flex justify-center md:justify-start items-center mt-3 text-neutral/40 font-bold text-xs uppercase tracking-widest'>
+							<MapPin size={14} className='mr-1.5' />
+							{isEditing ? (
+								<input
+									type='text'
+									value={editedData.location ?? userData.location}
+									onChange={(e) => setEditedData({ ...editedData, location: e.target.value })}
+									className='bg-base-200/50 rounded-lg px-2 py-0.5'
+								/>
+							) : (
+								<span>{userData.location || "Global"}</span>
+							)}
+							<div className='mx-3 size-1 rounded-full bg-base-300'></div>
+							<span className='text-primary'>{userData.connections?.length || 0} Connections</span>
+						</div>
+					</div>
+
+					<div className='flex-shrink-0'>
+						{isOwnProfile ? (
+							isEditing ? (
+								<div className='flex gap-3'>
+									<button
+										className='btn btn-primary rounded-2xl px-8 h-12 shadow-glow font-bold premium-transition'
+										onClick={handleSave}
+									>
+										Save Changes
+									</button>
+									<button
+										className='btn btn-ghost rounded-2xl px-6 h-12 font-bold hover:bg-error/10 hover:text-error premium-transition'
+										onClick={() => setIsEditing(false)}
+									>
+										Cancel
+									</button>
+								</div>
+							) : (
+								<button
+									onClick={() => setIsEditing(true)}
+									className='btn btn-primary rounded-2xl px-8 h-12 shadow-glow font-bold premium-transition'
+								>
+									Edit Profile
+								</button>
+							)
+						) : (
+							<div className='flex justify-center'>{renderConnectionButton()}</div>
 						)}
 					</div>
 				</div>
-
-				{isOwnProfile ? (
-					isEditing ? (
-						<button
-							className='w-full bg-primary text-white py-2 px-4 rounded-full hover:bg-primary-dark
-							 transition duration-300'
-							onClick={handleSave}
-						>
-							Save Profile
-						</button>
-					) : (
-						<button
-							onClick={() => setIsEditing(true)}
-							className='w-full bg-primary text-white py-2 px-4 rounded-full hover:bg-primary-dark
-							 transition duration-300'
-						>
-							Edit Profile
-						</button>
-					)
-				) : (
-					<div className='flex justify-center'>{renderConnectionButton()}</div>
-				)}
 			</div>
 		</div>
 	);

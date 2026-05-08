@@ -55,7 +55,7 @@ const HomePage = () => {
 	}, [recommendedUsers, normalizedSearch]);
 
 	return (
-		<div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
+		<div className='grid grid-cols-1 lg:grid-cols-4 gap-8 py-6'>
 			<div className='hidden lg:block lg:col-span-1'>
 				<Sidebar user={authUser} />
 			</div>
@@ -64,47 +64,62 @@ const HomePage = () => {
 				<PostCreation user={authUser} />
 
 				{searchTerm && (
-					<p className='text-xs text-info mb-2'>
-						Showing results for <span className='font-semibold text-neutral'>" {searchTerm} "</span>
-					</p>
+					<div className='mb-4 flex items-center gap-2'>
+						<span className='px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-full uppercase tracking-wider'>
+							Search Results
+						</span>
+						<p className='text-sm text-neutral/50'>
+							for <span className='font-bold text-neutral'>"{searchTerm}"</span>
+						</p>
+					</div>
 				)}
 
-				{visiblePosts?.map((post) => (
-					<Post key={post._id} post={post} />
-				))}
+				<div className='space-y-2'>
+					{visiblePosts?.map((post) => (
+						<Post key={post._id} post={post} />
+					))}
+				</div>
 
 				{visiblePosts && visiblePosts.length === 0 && (
-					<div className='bg-secondary rounded-xl shadow-soft-card p-8 text-center border border-base-200/60'>
-						<div className='mb-3'>
-							<Users size={48} className='mx-auto text-primary' />
+					<div className='glass-card rounded-2xl p-12 text-center animate-fade-in'>
+						<div className='size-20 bg-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6'>
+							<Users size={40} className='text-primary/40' />
 						</div>
-						<h2 className='text-lg font-semibold mb-1 text-neutral'>No matching posts</h2>
-						<p className='text-info text-sm'>
-							Try searching for a different keyword or clear the search box to see all posts.
+						<h2 className='text-xl font-bold text-neutral mb-2 font-["Outfit"]'>No matching posts found</h2>
+						<p className='text-neutral/50 text-sm max-w-xs mx-auto leading-relaxed'>
+							Try adjusting your search terms or explore new topics to find what you're looking for.
 						</p>
 					</div>
 				)}
 
 				{!searchTerm && posts?.length === 0 && (
-					<div className='bg-secondary rounded-xl shadow-soft-card p-8 text-center border border-base-200/60'>
-						<div className='mb-6'>
-							<Users size={64} className='mx-auto text-primary' />
+					<div className='glass-card rounded-2xl p-12 text-center animate-fade-in'>
+						<div className='size-20 bg-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6'>
+							<Users size={40} className='text-primary/40' />
 						</div>
-						<h2 className='text-2xl font-bold mb-2 text-neutral'>No Posts Yet</h2>
-						<p className='text-info mb-6'>
-							Share your first update or connect with others to start seeing posts in your feed.
+						<h2 className='text-xl font-bold text-neutral mb-2 font-["Outfit"]'>Your feed is waiting</h2>
+						<p className='text-neutral/50 text-sm max-w-xs mx-auto leading-relaxed mb-6'>
+							Share your first insight or follow professional peers to start building your network.
 						</p>
+						<button className='btn btn-primary rounded-xl px-8 shadow-glow normal-case font-bold'>
+							Find Connections
+						</button>
 					</div>
 				)}
 			</div>
 
-			<div className='col-span-1 lg:col-span-1 hidden lg:flex flex-col gap-4'>
+			<div className='col-span-1 lg:col-span-1 hidden lg:flex flex-col gap-6'>
 				{visibleRecommendedUsers?.length > 0 && (
-					<div className='bg-secondary rounded-xl shadow-soft-card p-4 border border-base-200/60'>
-						<h2 className='font-semibold mb-4 text-sm'>People you may know</h2>
-						{visibleRecommendedUsers?.map((user) => (
-							<RecommendedUser key={user._id} user={user} />
-						))}
+					<div className='glass-card rounded-2xl p-5 border-base-200/50'>
+						<h2 className='font-bold text-sm text-neutral/40 uppercase tracking-widest mb-5 flex items-center gap-2'>
+							<div className='w-1.5 h-1.5 rounded-full bg-primary animate-pulse'></div>
+							People you may know
+						</h2>
+						<div className='space-y-1'>
+							{visibleRecommendedUsers?.map((user) => (
+								<RecommendedUser key={user._id} user={user} />
+							))}
+						</div>
 					</div>
 				)}
 
