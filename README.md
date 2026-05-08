@@ -57,7 +57,14 @@ The platform allows users to create professional profiles, connect with others, 
 <img width="1890" height="852" alt="Profile Section" src="https://github.com/user-attachments/assets/694aa44c-922a-4041-afef-0d485aee7435" />
 
 <br/>
+<img width="1897" height="846" alt="Messaging System" src="https://github.com/user-attachments/assets/190648f8-220a-451a-a4ed-d795f8a35034" />
 
+<br/>
+
+
+<img width="1892" height="821" alt="Notifications Page" src="https://github.com/user-attachments/assets/903e1e7d-7654-4c17-85f7-5fc6bccb4ca6" />
+
+<br/>
 <img width="1918" height="857" alt="Feed Page" src="https://github.com/user-attachments/assets/32e70262-195e-4bf1-abf5-a4fb46014cd3" />
 
 <br/>
@@ -87,14 +94,7 @@ The platform allows users to create professional profiles, connect with others, 
 <br/>
 
 
-<img width="1897" height="846" alt="Messaging System" src="https://github.com/user-attachments/assets/190648f8-220a-451a-a4ed-d795f8a35034" />
 
-<br/>
-
-
-<img width="1892" height="821" alt="Notifications Page" src="https://github.com/user-attachments/assets/903e1e7d-7654-4c17-85f7-5fc6bccb4ca6" />
-
-<br/>
 
 ---
 
