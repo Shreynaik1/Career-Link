@@ -49,61 +49,51 @@ The platform allows users to create professional profiles, connect with others, 
 ## Screenshots
 # Screenshots
 
-### Feed Page
 
 <img width="1918" height="857" alt="Feed Page" src="https://github.com/user-attachments/assets/32e70262-195e-4bf1-abf5-a4fb46014cd3" />
 
 <br/>
 
-### Home Dashboard
+
 
 <img width="1882" height="837" alt="Home Dashboard" src="https://github.com/user-attachments/assets/1e827846-2f90-445b-8932-5189ad8ac86c" />
 
 <br/>
 
-### Profile Section
 
 <img width="1890" height="852" alt="Profile Section" src="https://github.com/user-attachments/assets/694aa44c-922a-4041-afef-0d485aee7435" />
 
 <br/>
 
-### Education Management
-
 <img width="1801" height="897" alt="Education Management" src="https://github.com/user-attachments/assets/d199f265-834e-4497-8e67-98f2b8934d56" />
 
 <br/>
 
-### User Profile
 
 <img width="1891" height="902" alt="User Profile" src="https://github.com/user-attachments/assets/7319104f-35a3-43f5-9f6d-d9c15adf761a" />
 
 <br/>
 
-### Network Connections
 
 <img width="1882" height="857" alt="Network Connections" src="https://github.com/user-attachments/assets/c3d332a3-27a4-4d66-9549-691c0067720c" />
 
 <br/>
 
-### Social Feed
 
 <img width="1897" height="855" alt="Social Feed" src="https://github.com/user-attachments/assets/bd56b3bb-81bb-4a95-8d93-16a144a2d31d" />
 
 <br/>
 
-### Post Interaction
 
 <img width="1892" height="852" alt="Post Interaction" src="https://github.com/user-attachments/assets/fb71d3a9-8398-49d4-9058-bba455a8c980" />
 
 <br/>
 
-### Messaging System
 
 <img width="1897" height="846" alt="Messaging System" src="https://github.com/user-attachments/assets/190648f8-220a-451a-a4ed-d795f8a35034" />
 
 <br/>
 
-### Notifications Page
 
 <img width="1892" height="821" alt="Notifications Page" src="https://github.com/user-attachments/assets/903e1e7d-7654-4c17-85f7-5fc6bccb4ca6" />
 
