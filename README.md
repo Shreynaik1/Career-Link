@@ -69,12 +69,13 @@ The platform allows users to create professional profiles, connect with others, 
 
 <br/>
 
-<img width="1801" height="897" alt="Education Management" src="https://github.com/user-attachments/assets/d199f265-834e-4497-8e67-98f2b8934d56" />
 
-<br/>
 
 
 <img width="1891" height="902" alt="User Profile" src="https://github.com/user-attachments/assets/7319104f-35a3-43f5-9f6d-d9c15adf761a" />
+
+<br/>
+<img width="1801" height="897" alt="Education Management" src="https://github.com/user-attachments/assets/d199f265-834e-4497-8e67-98f2b8934d56" />
 
 <br/>
 
